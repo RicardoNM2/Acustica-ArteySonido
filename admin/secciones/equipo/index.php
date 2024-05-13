@@ -1,6 +1,29 @@
 <?php 
     include("../../bd.php"); 
 
+    if (isset($_GET['txtID'])) {
+        //Editar registro segun id
+        $txtID=(isset($_GET['txtID']) )?$_GET['txtID']: "";
+    
+        
+        $sentencia=$conexion->prepare("SELECT imagen FROM tbl_equipo WHERE id=:id ");
+        $sentencia->bindParam(":id", $txtID);
+        $sentencia->execute();
+        $registro_imagen = $sentencia -> fetch(PDO::FETCH_LAZY);
+    
+        if (isset($registro_imagen["imagen"])) {
+            
+            if (file_exists ("../../../assets/img/team/". $registro_imagen["imagen"])){
+                unlink("../../../assets/img/team/". $registro_imagen["imagen"]);            
+            } 
+        } 
+        
+            $sentencia=$conexion->prepare("DELETE FROM tbl_equipo WHERE id=:id ");
+            $sentencia->bindParam(":id", $txtID);
+            $sentencia->execute();
+        
+    }
+
     
    //Seleccionar registros
    $sentencia=$conexion->prepare("SELECT * FROM `tbl_equipo`");
@@ -33,23 +56,26 @@
                 <tr>
                     <th scope="col">ID</th>
                     <th scope="col">Imagen</th>
-                    <th scope="col">NombreCompleto</th>
+                    <th scope="col">Nombre</th>
                     <th scope="col">Puesto</th>
                     <th scope="col">Twitter</th>
+                    <th scope="col">Facebook</th>
                     <th scope="col">Linkedin</th>
 
 
                 </tr>
             </thead>
             <tbody>
+            <?php foreach ($lista_entradas as $registros) { ?>
+
                 <tr class="">
-                    <td>1</td>
-                    <td>imagen.jpg</td>
-                    <td>Carlos</td>
-                    <td>CEO</td>
-                    <td>CarlosNM</td>
-                    <td>CarlosNM</td>
-                    <td>CarlosNM</td>
+                    <td><?php echo $registros['ID'] ?></td>
+                    <td><img width="60" src="../../../assets/img/team/ <?php echo $registros['imagen']; ?>"/> </td>
+                    <td><?php echo $registros['titulo'] ?></td>
+                    <td><?php echo $registros['puesto'] ?></td>
+                    <td><?php echo $registros['twitter'] ?></td>
+                    <td><?php echo $registros['facebook'] ?></td>
+                    <td><?php echo $registros['linkedin'] ?></td>
                     <td>
                     <td>
                             <a
@@ -70,22 +96,16 @@
                                         >Eliminar</a
                                 >
                         </td>
-                        
                     </td>
-
-
-
-
                 </tr>
+                <?php } ?>
+
             </tbody>
         </table>
     </div>
           
         </div>
     </div>
-    
-  
-    
 
     
 <?php include("../../templates/footer.php"); ?>

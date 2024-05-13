@@ -1,9 +1,45 @@
 <?php 
 include("../../bd.php"); 
 
+if($_POST) {
 
-//MIN 5:47
+        //Recepcionaos los valores de las entradas
+        $imagen=(isset($_FILES["imagen"]["name"]))?$_FILES["imagen"]["name"]:"";
+        $titulo=(isset($_POST['titulo']))?$_POST['titulo']:"";
+        $puesto=(isset($_POST['puesto']))?$_POST['puesto']:"";
 
+        $twitter=(isset($_POST['twitter']))?$_POST['twitter']:"";
+        $facebook=(isset($_POST['facebook']))?$_POST['facebook']:"";
+        $linkedin=(isset($_POST['linkedin']))?$_POST['linkedin']:"";
+
+
+        //Actualizamos imagen
+        $fecha_imagen=new DateTime();
+        $nombre_archivo_imagen = ($imagen != "") ? $fecha_imagen->getTimestamp() . "_" . $imagen : " ";
+        $tmp_imagen = $_FILES["imagen"]["tmp_name"];
+    
+        if ($tmp_imagen != " ") {
+            move_uploaded_file ($tmp_imagen, "../../../assets/img/team/ ".$nombre_archivo_imagen);
+        }
+
+        include("../../bd.php"); 
+        //Sentencia para insertar los datos
+        $sentencia=$conexion->prepare("INSERT INTO `tbl_equipo` 
+        (`ID`, `imagen`, `titulo`, `puesto`, `twitter`, `facebook`,`linkedin`) 
+        VALUES (NULL, :imagen, :titulo, :puesto, :twitter, :facebook, :linkedin);");
+        
+        $sentencia->bindParam(":imagen", $nombre_archivo_imagen);
+
+        $sentencia->bindParam(":titulo", $titulo);
+        $sentencia->bindParam(":puesto", $puesto);
+        $sentencia->bindParam(":twitter", $twitter);
+        $sentencia->bindParam(":facebook", $facebook);
+        $sentencia->bindParam(":linkedin", $linkedin);
+        $sentencia->execute();
+  
+
+     
+}
 include("../../templates/header.php"); ?>
 
 
@@ -26,14 +62,14 @@ include("../../templates/header.php"); ?>
                 />
             </div>
             <div class="mb-3">
-                <label for="nombre" class="form-label">Nombre:</label>
+                <label for="titulo" class="form-label">Nombre:</label>
                 <input
                     type="text"
                     class="form-control"
-                    name="nombre"
-                    id="nombre"
+                    name="titulo"
+                    id="titulo"
                     aria-describedby="helpId"
-                    placeholder="nombre"
+                    placeholder="titulo"
                 />
             </div>
             <div class="mb-3">
@@ -48,14 +84,14 @@ include("../../templates/header.php"); ?>
                 />
             </div>
             <div class="mb-3">
-                <label for="instagram" class="form-label">Instagram:</label>
+                <label for="twitter" class="form-label">Twitter:</label>
                 <input
                     type="text"
                     class="form-control"
-                    name="instagram"
-                    id="intagram"
+                     name="twitter"
+                    id="twitter"
                     aria-describedby="helpId"
-                    placeholder="instagram"
+                    placeholder="twitter"
                 />
             </div>
     
