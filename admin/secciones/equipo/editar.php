@@ -16,12 +16,87 @@ if (isset($_GET['txtID'])) {
     $imagen=$registro['imagen'];
     $titulo=$registro['titulo'];
 
-    $puesto=$registro['titulo'];
+    $puesto=$registro['puesto'];
     $twitter=$registro['twitter'];
     $facebook=$registro['facebook'];
     $linkedin=$registro['linkedin'];
 
 }
+
+if ($_POST) {
+    
+    $imagen=(isset($_FILES["imagen"]["name"]))?$_FILES["imagen"]["name"]:"";
+    $titulo=(isset($_POST['titulo']))?$_POST['titulo']:"";
+    $puesto=(isset($_POST['puesto']))?$_POST['puesto']:"";
+    $twitter=(isset($_POST['twitter']))?$_POST['twitter']:"";
+    $facebook=(isset($_POST['facebook']))?$_POST['facebook']:"";
+    $linkedin=(isset($_POST['linkedin']))?$_POST['linkedin']:"";
+
+
+    $sentencia=$conexion->prepare("UPDATE tbl_equipo SET 
+    titulo =:titulo , 
+    puesto =: puesto, 
+    twitter =: twitter, 
+    facebook =: facebook, 
+    linkedin =: linkedin 
+    WHERE ID=:id "); 
+    
+
+    //Asignamos los valores que insertemos por la interfaza los valores de la tabla
+
+    // $sentencia->bindParam(":imagen", $nombre_archivo_imagen);
+        $sentencia->bindParam(":titulo", $titulo);
+        $sentencia->bindParam(":puesto", $puesto);
+        $sentencia->bindParam(":twitter", $twitter);
+        $sentencia->bindParam(":facebook", $facebook);
+        $sentencia->bindParam(":linkedin", $linkedin);
+        $sentencia->bindParam(":id", $txtID);
+        $imagen=$nombre_archivo_imagen;
+        $sentencia->execute();
+        
+
+       //Comprobamos si hay imagen
+       if($_FILES["imagen"]["tmp_name"]!="") {
+
+        //Cambiamos numero para controlar la actualziacion
+        $imagen=(isset($_FILES["imagen"]["name"]))?$_FILES["imagen"]["name"]:"";
+
+        $fecha_imagen=new DateTime();
+        $nombre_archivo_imagen = ($imagen != "") ? $fecha_imagen->getTimestamp() . "_" . $imagen : " ";
+        
+        //Subir imagen
+        $tmp_imagen = $_FILES["imagen"]["tmp_name"];
+
+        move_uploaded_file ($tmp_imagen, "../../../assets/img/team/ ".$nombre_archivo_imagen);
+        
+        //Borrado del archivo anterior
+        $sentencia=$conexion->prepare("SELECT imagen FROM tbl_equipo WHERE id=:id ");
+        $sentencia->bindParam(":id", $txtID);
+        $sentencia->execute();
+        $registro_imagen = $sentencia -> fetch(PDO::FETCH_LAZY);
+    
+        if (isset($registro_imagen["imagen"])) {
+            
+            if (file_exists ("../../../assets/img/team/". $registro_imagen["imagen"])){
+                unlink("../../../assets/img/team/". $registro_imagen["imagen"]);            
+            } 
+        } 
+        
+
+        //Instrucciión de actualziación de imagen
+        $sentencia=$conexion->prepare("UPDATE tbl_equipo 
+        SET imagen=:imagen
+        WHERE id=:id "); 
+
+        $sentencia->bindParam(":imagen", $nombre_archivo_imagen);
+        $sentencia->bindParam(":id", $txtID);
+        $sentencia->execute();
+
+
+    }
+       
+    }  
+   
 ?>
 
 <div class="card">
@@ -29,6 +104,18 @@ if (isset($_GET['txtID'])) {
         <div class="card-body">
             
             <form action="" method="post" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label for="" class="form-label">ID:</label>
+                <input readonly value="<?php  echo $txtID; ?>"
+                    type="text"
+                    class="form-control"
+                    name="txtID"
+                    id="txtID"
+                    aria-describedby="helpId"
+                    placeholder="ID"
+                />
+            </div>
+            
             <div class="mb-3">
                 <label for="imagen" class="form-label">Imagen:</label>
                 <img width="60" src="../../../assets/img/team/ <?php echo $imagen; ?>"/> 

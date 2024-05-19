@@ -17,6 +17,18 @@
     $sentencia->execute();
     $lista_entradas=$sentencia->fetchAll(PDO::FETCH_ASSOC);
 
+    //Seleccionar registros equipo
+    $sentencia=$conexion->prepare("SELECT * FROM `tbl_equipo`");
+    $sentencia->execute();
+    $lista_equipo=$sentencia->fetchAll(PDO::FETCH_ASSOC);
+
+     //Seleccionar registros configuracionesz
+     $sentencia=$conexion->prepare("SELECT * FROM `tbl_configuraciones`");
+     $sentencia->execute();
+     $lista_configuraciones=$sentencia->fetchAll(PDO::FETCH_ASSOC);
+
+  
+
 ?>
 
 <!DOCTYPE html>
@@ -61,9 +73,9 @@
         <!-- Masthead-->
         <header class="masthead">
             <div class="container">
-                <div class="masthead-subheading">La importancia del silencio</div>
-                <div class="masthead-heading text-uppercase">Es un placer tenerte aqui</div>
-                <a class="btn btn-primary btn-xl text-uppercase" href="#services">Conoce más</a>
+                <div class="masthead-subheading"><?php echo $lista_configuraciones[0]['valor']; ?></div>
+                <div class="masthead-heading text-uppercase"><?php echo $lista_configuraciones[1]['valor']; ?></div>
+                <a class="btn btn-primary btn-xl text-uppercase" href="<?php echo $lista_configuraciones[3]['valor']; ?>"><?php echo $lista_configuraciones[2]['valor']; ?></a>
             </div>
         </header>
         <!-- Services-->
@@ -71,7 +83,7 @@
             <div class="container">
                 <div class="text-center">
                     <h2 class="section-heading text-uppercase">Servicios</h2>
-                    <h3 class="section-subheading text-muted"></h3>
+                    <h3 class="section-subheading text-muted"><?php echo $lista_configuraciones[4]['valor']; ?></h3>
                 </div>
                 <div class="row text-center">
 
@@ -94,7 +106,7 @@
             <div class="container">
                 <div class="text-center">
                     <h2 class="section-heading text-uppercase">Portfolio</h2>
-                    <h3 class="section-subheading text-muted"></h3>
+                    <h3 class="section-subheading text-muted"><?php echo $lista_configuraciones[5]['valor']; ?></h3>
                 </div>
                 <div class="row">
                 <?php foreach ($lista_portfolio as $registros) { ?>
@@ -200,7 +212,7 @@
             <div class="container">
                 <div class="text-center">
                     <h2 class="section-heading text-uppercase">Sobre nosotros</h2>
-                    <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+                    <h3 class="section-subheading text-muted"><?php echo $lista_configuraciones[6]['valor']; ?></h3>
                 </div>
                 <ul class="timeline">
                     
@@ -272,39 +284,24 @@
             <div class="container">
                 <div class="text-center">
                     <h2 class="section-heading text-uppercase">Nuestro equipo</h2>
-                    <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+                    <h3 class="section-subheading text-muted"><?php echo $lista_configuraciones[8]['valor']; ?></h3>
                 </div>
                 <div class="row">
+                    <?php 
+                foreach ($lista_equipo as $registros) { ?>
                     <div class="col-lg-4">
                         <div class="team-member">
-                            <img class="mx-auto rounded-circle" src="assets/img/team/1.jpg" alt="..." />
-                            <h4>Parveen Anand</h4>
-                            <p class="text-muted">Lead Designer</p>
-                            <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Parveen Anand Twitter Profile"><i class="fab fa-twitter"></i></a>
-                            <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Parveen Anand Facebook Profile"><i class="fab fa-facebook-f"></i></a>
-                            <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Parveen Anand LinkedIn Profile"><i class="fab fa-linkedin-in"></i></a>
+                            <?php echo $registros ['imagen']; ?>
+                            <img class="mx-auto rounded-circle" src="assets/img/team/<?php echo $registros['']; ?>" alt="..." />
+                            <h4><?php echo $registros['titulo']; ?></h4>
+                            <p class="text-muted"><?php echo $registros['puesto']; ?></p>
+                            <a class="btn btn-dark btn-social mx-2" href="<?php echo $registros['twitter']; ?>" aria-label="Parveen Anand Twitter Profile"><i class="fab fa-twitter"></i></a>
+                            <a class="btn btn-dark btn-social mx-2" href="<?php echo $registros['facebook']; ?>" aria-label="Parveen Anand Facebook Profile"><i class="fab fa-facebook-f"></i></a>
+                            <a class="btn btn-dark btn-social mx-2" href="<?php echo $registros['linkedin']; ?>" aria-label="Parveen Anand LinkedIn Profile"><i class="fab fa-linkedin-in"></i></a>
                         </div>
                     </div>
-                    <div class="col-lg-4">
-                        <div class="team-member">
-                            <img class="mx-auto rounded-circle" src="assets/img/team/2.jpg" alt="..." />
-                            <h4>Diana Petersen</h4>
-                            <p class="text-muted">Lead Marketer</p>
-                            <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Diana Petersen Twitter Profile"><i class="fab fa-twitter"></i></a>
-                            <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Diana Petersen Facebook Profile"><i class="fab fa-facebook-f"></i></a>
-                            <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Diana Petersen LinkedIn Profile"><i class="fab fa-linkedin-in"></i></a>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="team-member">
-                            <img class="mx-auto rounded-circle" src="assets/img/team/3.jpg" alt="..." />
-                            <h4>Larry Parker</h4>
-                            <p class="text-muted">Lead Developer</p>
-                            <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Larry Parker Twitter Profile"><i class="fab fa-twitter"></i></a>
-                            <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Larry Parker Facebook Profile"><i class="fab fa-facebook-f"></i></a>
-                            <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Larry Parker LinkedIn Profile"><i class="fab fa-linkedin-in"></i></a>
-                        </div>
-                    </div>
+                    <?php } ?>
+
                 </div>
                 <div class="row">
                     <div class="col-lg-8 mx-auto text-center"><p class="large text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut eaque, laboriosam veritatis, quos non quis ad perspiciatis, totam corporis ea, alias ut unde.</p></div>
@@ -334,8 +331,8 @@
         <section class="page-section" id="contact">
             <div class="container">
                 <div class="text-center">
-                    <h2 class="section-heading text-uppercase">contacto</h2>
-                    <h3 class="section-subheading text-muted">La importancia del silencio</h3>
+                    <h2 class="section-heading text-uppercase">Contacto</h2>
+                    <h3 class="section-subheading text-muted">el camino empieza aquí</h3>
                 </div>
                 <!-- * * * * * * * * * * * * * * *-->
                 <!-- * * SB Forms Contact Form * *-->
@@ -381,7 +378,7 @@
                             <div class="fw-bolder">Form submission successful!</div>
                             To activate this form, sign up at
                             <br />
-                            <a href="https://startbootstrap.com/solution/contact-forms">https://startbootstrap.com/solution/contact-forms</a>
+                            <a href="ricardonm2000@gmail.com">https://startbootstrap.com/solution/contact-forms</a>
                         </div>
                     </div>
                     <!-- Submit error message-->
@@ -390,7 +387,7 @@
                     <!-- an error submitting the form-->
                     <div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3">Error sending message!</div></div>
                     <!-- Submit Button-->
-                    <div class="text-center"><button class="btn btn-primary btn-xl text-uppercase disabled" id="submitButton" type="submit">Send Message</button></div>
+                    <div class="text-center"><button class="btn btn-primary btn-xl text-uppercase disabled" id="submitButton" type="submit">Enviar</button></div>
                 </form>
             </div>
         </section>
@@ -398,15 +395,16 @@
         <footer class="footer py-4">
             <div class="container">
                 <div class="row align-items-center">
-                    <div class="col-lg-4 text-lg-start">Copyright &copy; Your Website 2023</div>
+                    <div class="col-lg-4 text-lg-start">2024 - Arte y Sonido. Todos los Derechos Reservados</div>
                     <div class="col-lg-4 my-3 my-lg-0">
-                        <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                        <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                        <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a class="btn btn-dark btn-social mx-2" href="" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a class="btn btn-dark btn-social mx-2" href="" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
                     </div>
                     <div class="col-lg-4 text-lg-end">
-                        <a class="link-dark text-decoration-none me-3" href="#!">Privacy Policy</a>
-                        <a class="link-dark text-decoration-none" href="#!">Terms of Use</a>
+                        <a class="link-dark text-decoration-none me-3" href=""><strong> Plaza el Campillo, 8 21002 <br>
+                        Huelva, España</strong></a>
+
+                        
                     </div>
                 </div>
             </div>

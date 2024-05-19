@@ -1,6 +1,12 @@
 <?php
+    session_start();
     $url_base="http://localhost/website/admin/";
 
+     if (!isset($_SESSION['usuario'])) {
+         header ("Location:" . $url_base . "login.php");
+ 
+
+    }
 ?>
 <!doctype html>
 <html lang="en">
@@ -34,7 +40,7 @@
                     <a class="nav-item nav-link" href="<?php echo $url_base?>secciones/equipo">Equipo</a>
                     <a class="nav-item nav-link" href="<?php echo $url_base?>secciones/configuraciones">Configuraciones</a>
                     <a class="nav-item nav-link" href="<?php echo $url_base?>secciones/usuarios">Usuarios</a>
-                    <a class="nav-item nav-link" href="<?php echo $url_base?>login.php">Cerrar sesión</a>
+                    <a class="nav-item nav-link" href="<?php echo $url_base?>cerrar.php">Cerrar sesión</a>
 
                 </div>
             </nav>

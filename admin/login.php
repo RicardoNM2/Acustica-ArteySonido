@@ -1,5 +1,38 @@
 <?php
     include("./bd.php");
+
+    //Recepiconar datos  y preguintar
+session_start();
+
+if ($_POST) {
+
+        $usuario=(isset($_POST['usuario']))?$_POST['usuario']:"";
+        $password=(isset($_POST['password']))?$_POST['password']:"";
+
+            //Seleccionar registros
+        $sentencia=$conexion->prepare("SELECT *, count(*) as n_usuario 
+            FROM `tbl_usuarios`
+            WHERE usuario=:usuario
+            AND password=:password
+            ");
+
+        $sentencia->bindParam(":usuario", $usuario);
+        $sentencia->bindParam(":password", $password); 
+        $sentencia->execute();
+
+        $lista_usuarios=$sentencia->fetch(PDO::FETCH_LAZY);
+
+        if ($lista_usuarios ['n_usuario']>0) {
+            print_r ("El usuario o contraseña existe");
+            $_SESSION['usuario'] = $lista_usuarios['usuario'];
+            $_SESSION['logueado']=true;
+            header("Location:index.php");
+        } else {
+            
+            $mensaje="Error: El usuario o contraseña son incorrectos";
+
+        }
+    }
 ?>
 
 <!doctype html>
@@ -33,17 +66,37 @@
                         
                     </div>
                     <div class="col-4">
+                        <br><br>
+                        <?php if(isset($mensaje)) { ?>
+                        <div class="alert alert-danger alert-dismissible fade show"
+                        role="alert">
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"
+                            aria-label="Close">
+                            </button>
+                                <strong> <?php echo $mensaje; ?></strong> 
+                            </div>
+                        <?php } ?>    
                         <div class="card">
                             <div class="card-header">Login</div>
                             <div class="card-body">
+
+    
+                            
+                            <script>
+                                var alertList = document.querySelectorAll(".alert");
+                                alertList.forEach(function (alert) {
+                                    new bootstrap.Alert(alert);
+                                });
+                            </script>
+                            
                             <form action="" method="post">
                                 <div class="mb-3">
                                     <label for="usuario" class="form-label">Usuario</label>
-                                    <input
+                                    <input 
                                         type="text"
                                         class="form-control"
-                                        name=""
-                                        id=""
+                                        name="usuario"
+                                        id="usuario"
                                         aria-describedby="helpId"
                                         placeholder=""
                                     />
@@ -52,17 +105,23 @@
                                 <div class="mb-3">
                                     <label for="contraseña" class="form-label">Contraseña</label>
                                     <input
-                                        type="text"
+                                        type="password"
                                         class="form-control"
-                                        name=""
-                                        id=""
+                                        name="password"
+                                        id="password"
                                         aria-describedby="helpId"
                                         placeholder=""
                                     />
                                 </div>
                                 
-                                <a  name="" id="" class="btn btn-primary" href="index.php" role="button">Entrar</a
-                                >
+                                <input
+                                    name=""
+                                    id=""
+                                    class="btn btn-primary"
+                                    type="submit"
+                                    value="Entrar"
+                                />
+                                
                                 
                             </form> 
                             </div>

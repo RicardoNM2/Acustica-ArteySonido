@@ -28,7 +28,7 @@
    //Seleccionar registros
    $sentencia=$conexion->prepare("SELECT * FROM `tbl_equipo`");
    $sentencia->execute();
-   $lista_entradas=$sentencia->fetchAll(PDO::FETCH_ASSOC);
+   $lista_equipo=$sentencia->fetchAll(PDO::FETCH_ASSOC);
 
 
     
@@ -66,7 +66,7 @@
                 </tr>
             </thead>
             <tbody>
-            <?php foreach ($lista_entradas as $registros) { ?>
+            <?php foreach ($lista_equipo as $registros) { ?>
 
                 <tr class="">
                     <td><?php echo $registros['ID'] ?></td>

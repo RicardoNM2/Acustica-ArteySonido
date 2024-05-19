@@ -24,7 +24,7 @@ if($_POST) {
 //Incluimos el header
 include("../../templates/header.php"); ?>
 
-    //Añadimos los input y botones para crear servicios
+    <!-- Añadimos los input y botones para crear servicios -->
     <div class="card">
         <div class="card-header">Crear servicios</div>
 
