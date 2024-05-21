@@ -26,7 +26,19 @@
             integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
             crossorigin="anonymous"
         />
+
+        <!-- Incluimos el script para poder usar Jquery iñto,a version -->
+        <script
+        src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+        crossorigin="anonymous">
+        </script>
+    
+        <!-- Añadimos script para poder usar los mensajes de alert personalizados  -->
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     </head>
+
 
     <body>
         <header>
@@ -48,5 +60,13 @@
         </header>
 <main class="container">
     <br/>
+
+    <script>
+        <?php if(isset($_GET['mensaje'])) { ?>
+
+            Swal.fire({icon:"success", title:"<?php echo $_GET['mensaje']; ?>" });
+
+        <?php } ?>
+    </script>
 
         

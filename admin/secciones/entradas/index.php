@@ -70,7 +70,7 @@ include("../../templates/header.php"); ?>
                         <td><?php echo $registros['fecha'] ?></td>
                         <td><?php echo $registros['titulo'] ?></td>
                         <td><?php echo $registros['descripcion'] ?></td>
-                        <td><img width="60" src="../../../assets/img/about/ <?php echo $registros['imagen']; ?>"/> </td>
+                        <td><img width="60" src="../../../assets/img/about/<?php echo $registros['imagen']; ?>"/> </td>
 
 
                         <td>

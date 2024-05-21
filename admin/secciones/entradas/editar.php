@@ -40,6 +40,9 @@ if ($_POST) {
     $sentencia->bindParam(":id", $txtID);
     $sentencia->execute();
 
+    $mensaje="Registro modificado con exito";
+    header("Location:index.php?mensaje=".$mensaje);
+
 
        //Comprobamos si hay imagen
        if($_FILES["imagen"]["tmp_name"]!="") {

@@ -16,7 +16,7 @@ if (isset($_GET['txtID'])) {
     $sentencia=$conexion->prepare("SELECT * FROM `tbl_usuarios`");
     $sentencia->execute();
     $lista_usuarios=$sentencia->fetchAll(PDO::FETCH_ASSOC);
-    print_r ($lista_usuarios);
+    
 ?>
 
 <div class="card">

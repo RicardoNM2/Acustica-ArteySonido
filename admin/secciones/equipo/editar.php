@@ -25,34 +25,38 @@ if (isset($_GET['txtID'])) {
 
 if ($_POST) {
     
-    $imagen=(isset($_FILES["imagen"]["name"]))?$_FILES["imagen"]["name"]:"";
-    $titulo=(isset($_POST['titulo']))?$_POST['titulo']:"";
-    $puesto=(isset($_POST['puesto']))?$_POST['puesto']:"";
-    $twitter=(isset($_POST['twitter']))?$_POST['twitter']:"";
-    $facebook=(isset($_POST['facebook']))?$_POST['facebook']:"";
-    $linkedin=(isset($_POST['linkedin']))?$_POST['linkedin']:"";
+        $imagen=(isset($_FILES["imagen"]["name"]))?$_FILES["imagen"]["name"]:"";
+        $titulo=(isset($_POST['titulo']))?$_POST['titulo']:"";
+        $puesto=(isset($_POST['puesto']))?$_POST['puesto']:"";
+        $twitter=(isset($_POST['twitter']))?$_POST['twitter']:"";
+        $facebook=(isset($_POST['facebook']))?$_POST['facebook']:"";
+        $linkedin=(isset($_POST['linkedin']))?$_POST['linkedin']:"";
 
 
-    $sentencia=$conexion->prepare("UPDATE tbl_equipo SET 
-    titulo =:titulo , 
-    puesto =: puesto, 
-    twitter =: twitter, 
-    facebook =: facebook, 
-    linkedin =: linkedin 
-    WHERE ID=:id "); 
+        $sentencia=$conexion->prepare("UPDATE tbl_equipo SET 
+        titulo =:titulo , 
+        puesto =: puesto, 
+        twitter =: twitter, 
+        facebook =: facebook, 
+        linkedin =: linkedin 
+        WHERE ID=:id "); 
     
 
     //Asignamos los valores que insertemos por la interfaza los valores de la tabla
 
-    // $sentencia->bindParam(":imagen", $nombre_archivo_imagen);
+        $sentencia->bindParam(":imagen", $nombre_archivo_imagen);
         $sentencia->bindParam(":titulo", $titulo);
         $sentencia->bindParam(":puesto", $puesto);
         $sentencia->bindParam(":twitter", $twitter);
         $sentencia->bindParam(":facebook", $facebook);
         $sentencia->bindParam(":linkedin", $linkedin);
         $sentencia->bindParam(":id", $txtID);
-        $imagen=$nombre_archivo_imagen;
+
+        
         $sentencia->execute();
+        $mensaje="Registro modificado con exito";
+        header("Location:index.php?mensaje=".$mensaje);
+
         
 
        //Comprobamos si hay imagen

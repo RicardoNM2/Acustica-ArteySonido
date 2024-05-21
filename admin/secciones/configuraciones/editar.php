@@ -33,7 +33,7 @@
         $sentencia->bindParam(":id", $txtID);
         $sentencia->execute();
         
-        $mensaje="Registro agregado con exito";
+        $mensaje="Registro modificado con exito";
         header("Location:index.php?mensaje=".$mensaje);
         
     }

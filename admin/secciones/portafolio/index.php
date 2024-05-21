@@ -17,14 +17,17 @@ if (isset($_GET['txtID'])) {
         if (file_exists ("../../../assets/img/portfolio/". $registro_imagen["imagen"])){
             unlink("../../../assets/img/portfolio/". $registro_imagen["imagen"]);            
         } 
+        
+     
     } 
+    $sentencia=$conexion->prepare("DELETE FROM tbl_portafolio WHERE id=:id ");
+    $sentencia->bindParam(":id", $txtID);
+    $sentencia->execute();
     
-        $sentencia=$conexion->prepare("DELETE FROM tbl_portafolio WHERE id=:id ");
-        $sentencia->bindParam(":id", $txtID);
-        $sentencia->execute();
     
 }
 
+    
     //Seleccionar registros
     $sentencia=$conexion->prepare("SELECT * FROM `tbl_portafolio`");
     $sentencia->execute();
@@ -84,7 +87,7 @@ include("../../templates/header.php"); ?>
                                 <?php echo $registros['url'] ?>
                             </td>
                             <td scope="col">
-                            <img width="60" src="../../../assets/img/portfolio/ <?php echo $registros['imagen']; ?>"/> 
+                            <img width="50" src="../../../assets/img/portfolio/ <?php echo $registros['imagen']; ?>"/> 
                             </td>
                             <td scope="col"><?php echo $registros['descripcion'] ?></td>
                             <td scope="col">

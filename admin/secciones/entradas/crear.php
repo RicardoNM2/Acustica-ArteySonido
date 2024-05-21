@@ -29,6 +29,8 @@ if($_POST) {
     $sentencia->bindParam(":descripcion", $descripcion);
     $sentencia->bindParam(":imagen", $nombre_archivo_imagen);
     $sentencia->execute();
+    $mensaje= "Registro creado con éxito.";
+    header ("Location:index.php?mensaje=".$mensaje);
 
 }
 

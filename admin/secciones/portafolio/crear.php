@@ -36,7 +36,7 @@ if($_POST) {
 
        
     $sentencia->execute();
-    $mensaje="Registro agregado con exito";
+    $mensaje="Registro agregado con exito.";
     header("Location:index.php?mensaje=".$mensaje);
 
 }
