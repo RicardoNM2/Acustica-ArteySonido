@@ -1,11 +1,9 @@
 <?php 
 include("../../bd.php");
 
-
 if (isset($_GET['txtID'])) {
     //Editar registro segun id
     $txtID=(isset($_GET['txtID']) )?$_GET['txtID']: "";
-
     
     $sentencia=$conexion->prepare("SELECT imagen FROM tbl_portafolio WHERE id=:id ");
     $sentencia->bindParam(":id", $txtID);
@@ -13,20 +11,19 @@ if (isset($_GET['txtID'])) {
     $registro_imagen = $sentencia -> fetch(PDO::FETCH_LAZY);
 
     if (isset($registro_imagen["imagen"])) {
+        $path = "../../../../assets/img/portfolio/" . $registro_imagen["imagen"];
+        if (file_exists ($path)){
+            unlink ($path);
+        }
         
-        if (file_exists ("../../../assets/img/portfolio/". $registro_imagen["imagen"])){
-            unlink("../../../assets/img/portfolio/". $registro_imagen["imagen"]);            
-        } 
-        
-     
     } 
+
     $sentencia=$conexion->prepare("DELETE FROM tbl_portafolio WHERE id=:id ");
     $sentencia->bindParam(":id", $txtID);
     $sentencia->execute();
     
     
 }
-
     
     //Seleccionar registros
     $sentencia=$conexion->prepare("SELECT * FROM `tbl_portafolio`");
@@ -77,6 +74,9 @@ include("../../templates/header.php"); ?>
                             <th scope="col">Cliente</th>
                         </tr>
                     </thead>
+                    <p>
+                        <?php //echo "Path de la imagen: " . $path . "\n";?>
+                    </p>
                     <tbody>
                         <?php foreach ($lista_portafolio as $registros) { ?>
                         <tr class="">

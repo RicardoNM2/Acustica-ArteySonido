@@ -126,7 +126,7 @@
                             <div class="portfolio-hover">
                                 <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
                             </div>
-                            <img class="img-fluid" src="/assets/img/portfolio/<?php echo $registro_imagen['imagen']; ?>" alt="imagen" />
+                            <img class="img-fluid" src="/website/assets/img/portfolio/<?php echo "%20" . $registros['imagen']; ?>" alt="imagen" />
                         </a>
                         <div class="portfolio-caption">
                             <div class="portfolio-caption-heading"><?php echo $registros['titulo']; ?></div>
@@ -147,7 +147,7 @@
                                             <!-- Project details-->
                                             <h2 class="text-uppercase"><?php echo $registros['titulo']; ?></h2>
                                             <p class="item-intro text-muted"><?php echo $registros['subtitulo']; ?></p>
-                                            <img class="img-fluid d-block mx-auto" src="/assets/img/portfolio/salon.jpg" alt="..." />
+                                            <img class="img-fluid" src="/website/assets/img/portfolio/<?php echo "%20" . $registros['imagen']; ?>" alt="imagen" />
                                             <p><?php echo $registros['descripcion']; ?></p>
                                             <ul class="list-inline">
                                                 <li>
@@ -197,7 +197,7 @@
                 foreach ($lista_entradas as $registros) { ?>
                     <li <?php echo (($contador%2)==0)? 'class="timeline-inverted"' : ""?>>
                         <div class="timeline-image">
-                        <img class="rounded-circle img-fluid" src="assets/img/about/2.jpg" alt="..." /></div>
+                        <img class="rounded-circle img-fluid" src="/website/assets/img/about/<?php echo "%20" . $registros["imagen"];?>" alt="..." /></div>
                         <div class="timeline-panel">
                             <div class="timeline-heading">
                                 <h4><?php echo $registros["fecha"];?></h4>
@@ -255,6 +255,8 @@
                 </ul>
             </div>
         </section>
+
+
         <!-- Team-->
         <section class="page-section bg-light" id="team">
             <div class="container">
@@ -268,7 +270,7 @@
                     <div class="col-lg-4">
                         <div class="team-member">
                             
-                            <img class="mx-auto rounded-circle" src="assets/img/team/3.jpg" alt="..." />
+                            <img class="mx-auto rounded-circle" src="/website/assets/img/team/<?php echo $registros['imagen']; ?>" alt="..." />
                             <h4><?php echo $registros['titulo']; ?></h4>
                             <p class="text-muted"><?php echo $registros['puesto']; ?></p>
                             <a class="btn btn-dark btn-social mx-2" href="<?php echo $registros['twitter']; ?>" aria-label="Parveen Anand Twitter Profile"><i class="fab fa-twitter"></i></a>
@@ -280,7 +282,7 @@
 
                 </div>
                 <div class="row">
-                    <div class="col-lg-8 mx-auto text-center"><p class="large text-muted"><?php echo $lista_configuraciones[8]['valor']; ?></p></div>
+                    <div class="col-lg-8 mx-auto text-center"></p></div>
                 </div>
             </div>
         </section>
@@ -333,17 +335,16 @@
                     <!-- has successfully submitted-->
                     <div class="d-none" id="submitSuccessMessage">
                         <div class="text-center text-white mb-3">
-                            <div class="fw-bolder">Form submission successful!</div>
-                            To activate this form, sign up at
+                            <div class="fw-bolder">Mensaje enviado con éxito!</div>
                             <br />
-                            <a href="ricardonm2000@gmail.com">https://startbootstrap.com/solution/contact-forms</a>
+                            <a href="ricardonm2000@gmail.com"></a>
                         </div>
                     </div>
                     <!-- Submit error message-->
                     <!---->
                     <!-- This is what your users will see when there is-->
                     <!-- an error submitting the form-->
-                    <div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3">Error sending message!</div></div>
+                    <div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3">Error de envio de mensaje</div></div>
                     <!-- Submit Button-->
                     <div class="text-center"><button class="btn btn-primary btn-xl text-uppercase disabled" id="submitButton" type="submit">Enviar</button></div>
                 </form>

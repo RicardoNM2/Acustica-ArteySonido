@@ -77,7 +77,7 @@ if($_POST) {
             </div>
             <div class="mb-3">
                 <label for="" class="form-label">Contraseña:</label>
-                <input value="<?php echo $correo; ?>"
+                <input value="<?php echo $password; ?>"
                     type="password"
                     class="form-control"
                     name="password"
@@ -89,7 +89,7 @@ if($_POST) {
             
             <div class="mb-3">
                 <label for="" class="form-label">Correo:</label>
-                <input value="<?php echo $password; ?>"
+                <input value="<?php echo $correo; ?>"
                     type="email"
                     class="form-control"
                     name="correo"
